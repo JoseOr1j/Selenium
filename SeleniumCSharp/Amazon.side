@@ -1,0 +1,57 @@
+{
+  "id": "55142964-bf38-4086-a600-b309fc9f27e8",
+  "version": "2.0",
+  "name": "Amazon",
+  "url": "https://www.amazon.com",
+  "tests": [{
+    "id": "d8fba855-30d3-4cdd-863f-9becdb756f14",
+    "name": "Medical Care Tab",
+    "commands": [{
+      "id": "64af8102-e088-45b7-bfac-9063835f4c45",
+      "comment": "",
+      "command": "open",
+      "target": "/ref=nav_logo",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8d90b8f8-d572-4c5b-9870-191781ec9f2f",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "783x824",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "09011fd0-6d80-4266-adf5-1d8e197b0ca7",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,3988.800048828125)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7d680865-7cbd-4d13-b526-4f9d9cbf017d",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Careers",
+      "targets": [
+        ["linkText=Careers", "linkText"],
+        ["css=.navFooterLinkCol:nth-child(1) .nav_first > .nav_a", "css:finder"],
+        ["xpath=//a[contains(text(),'Careers')]", "xpath:link"],
+        ["xpath=//div[@id='navFooter']/div/div/div/ul/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'https://www.amazon.jobs')]", "xpath:href"],
+        ["xpath=//li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Careers')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "7a4585c8-d7ad-4a89-bd2c-f6e37c90989a",
+    "name": "Amazon Test",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["d8fba855-30d3-4cdd-863f-9becdb756f14"]
+  }],
+  "urls": ["https://www.amazon.com/"],
+  "plugins": []
+}
