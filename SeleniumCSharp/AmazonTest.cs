@@ -19,6 +19,7 @@ public class MedicalCareTabTest {
   [SetUp]
   public void SetUp() {
     driver = new ChromeDriver();
+    /*options.BrowserExecutableLocation = (C:\\Program Files\\)*/
     js = (IJavaScriptExecutor)driver;
     vars = new Dictionary<string, object>();
   }
@@ -27,15 +28,90 @@ public class MedicalCareTabTest {
     driver.Quit();
   }
   [Test]
-  public void medicalCareTab() {
-    driver.Navigate().GoToUrl("https://www.amazon.com/ref=nav_logo");
-    vars["title"] = driver.Title;
-    if ((Boolean) js.ExecuteScript("return (arguments[0]!=\'Amazon\')", vars["title"])) {
-      driver.Navigate().GoToUrl("https://www.amazon.jobs/en/a");
+    /* new code */
+
+    /*
+         * CSS Selectors
+         * .class symbolizes all elements by the given class name
+         * #id selects all elements by the given ID
+         * element selects all elements by the given tag name
+         * attribute selects all elements with a specific attrubute 
+    */
+
+    public void FirstSeleniumTest()
+    {
+        IWebDriver driver = new ChromeDriver();
+
+        driver.Manage().Window.Maximize();
+
+        driver.Navigate().GoToUrl("https://www.selenium.dev/");
+
+        Assert.That(driver.Title, Is.EqualTo("Selenium"));
+
+         // class name IwebElement checks to see if element is displayed 
+         var classNameValidator = driver.FindElement(By.ClassName("DocSearc")).Displayed;
+
+         // ths should fail because there is no .DocSearch class found in the website code 
+
+         Assert.That(classNameValidator, Is.EqualTo(true));
+
+         var cssSelectorValidator = driver.FindElement(By.ClassName("DocSearc")).Displayed;
+         Assert.That(classNameValidator, Is.EqualTo(true));
+
+         // ensure that IDs are unique for test cases 
+
+         // id 
+
+         var idValidator = driver.FindElement(By.Id("selenium-logo")).Displayed;
+         Assert.That(idValidator, Is.EqualTo(true));
+
+        driver.Quit();
+       
     }
-    driver.Manage().Window.Size = new System.Drawing.Size(783, 824);
-    js.ExecuteScript("window.scrollTo(0,3988.800048828125)");
-    driver.FindElement(By.LinkText("Careers")).Click();
-    driver.Close();
-  }
+
+    [Test]
+
+    public void SecondSeleniumTest()
+    {
+        IWebDriver driver = new ChromeDriver();
+
+        driver.Manage().Window.Maximize();
+
+        driver.Navigate().GoToUrl("https://www.selenium.dev/");
+
+        Assert.That(driver.Title, Is.EqualTo("Selenium"));
+
+        var classNameValidator = driver.FindElement(By.ClassName("td-home")).Displayed;
+
+        Assert.That(classNameValidator, Is.EqualTo(true));
+
+        // this should pass because there is a class element named td-home in the code 
+    }
+
+    [Test]
+    public void ThirdSeleniumTest()
+    {
+        IWebDriver driver = new ChromeDriver();
+        driver.Manage().Window.Minimize();
+
+        driver.Navigate().GoToUrl("https://www.selenium.dev");
+
+        var classNameValidator = driver.FindElement(By.ClassName("td-offset-anchor")).Displayed;
+
+        Assert.That(classNameValidator, Is.EqualTo(true));
+    }
+
+
+    /* public void medicalCareTab() {
+       driver.Navigate().GoToUrl("https://www.amazon.com/ref=nav_logo");
+       vars["title"] = driver.Title;
+       if ((Boolean) js.ExecuteScript("return (arguments[0]!=\'Amazon\')", vars["title"])) {
+         driver.Navigate().GoToUrl("https://www.amazon.jobs/en/a");
+       }
+       driver.Manage().Window.Size = new System.Drawing.Size(783, 824);
+       js.ExecuteScript("window.scrollTo(0,3988.800048828125)");
+       driver.FindElement(By.LinkText("Careers")).Click();
+       driver.Close();
+     }
+    */
 }
