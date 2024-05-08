@@ -13,8 +13,11 @@ using OpenQA.Selenium.Interactions;
 using NUnit.Framework;
 using System.Linq.Expressions;
 using System.CodeDom;
+using System.Data;
+using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 [TestFixture]
-public class MedicalCareTabTest {
+public class AmazonTest {
     private IWebDriver driver;
     public IDictionary<string, object> vars { get; private set; }
     private IJavaScriptExecutor js;
@@ -31,313 +34,126 @@ public class MedicalCareTabTest {
     }
     /* new code */
 
-    /*
-         * CSS Selectors
-         * .class symbolizes all elements by the given class name
-         * #id selects all elements by the given ID
-         * element selects all elements by the given tag name
-         * attribute selects all elements with a specific attrubute 
+    [Test]
+    public static void newTest()
+    {
+
+        void repeat()
+        {
+            IWebDriver driver = new ChromeDriver();
+
+            /* driver . something is what the code can touch */
+            driver.Navigate().GoToUrl("https://amazon.com");
+
+            driver.ToString();
 
 
-    public void FirstSeleniumTest()
-    { 
+            Assert.That(driver.Title, Is.EqualTo("Amazon.com"));
+
+            for (int i = 0; i < 2; i++)
+            {
+                driver.GetHashCode();
+                driver.GetType();
+            }
+
+            if (driver.Title == "Amazon.com")
+            {
+                Console.Write("This is an amazon website");
+            }
+            else if (driver.Title == "Amazon Labs.com")
+            {
+                Console.Write(driver.Title);
+                Console.WriteLine("This is another amazon site");
+            }
+            else
+            {
+                Console.WriteLine("This is not an amazon site.. now quitting");
+                driver.Quit();
+            }
+        }
+
+        repeat();
+        
+    }
+
+    [Test]
+    public static void clickOnItem()
+    {
         IWebDriver driver = new ChromeDriver();
 
-        driver.Manage().Window.Maximize();
+        driver.Navigate().GoToUrl("https://Amazon.com");
 
-        driver.Navigate().GoToUrl("https://www.selenium.dev/");
+        driver.ToString();
 
-        Assert.That(driver.Title, Is.EqualTo("Selenium"));
-
-         // class name IwebElement checks to see if element is displayed 
-         var classNameValidator = driver.FindElement(By.ClassName("DocSearc")).Displayed;
-
-         // ths should fail because there is no .DocSearch class found in the website code 
-
-         Assert.That(classNameValidator, Is.EqualTo(true));
-
-         var cssSelectorValidator = driver.FindElement(By.ClassName("DocSearc")).Displayed;
-         Assert.That(classNameValidator, Is.EqualTo(true));
-
-         // ensure that IDs are unique for test cases 
-
-         // id 
-
-         var idValidator = driver.FindElement(By.Id("selenium-logo")).Displayed;
-         Assert.That(idValidator, Is.EqualTo(true));
-
-        driver.Quit();
+        Assert.That(driver.Equals("ELEMENT"), Is.EqualTo(true));
        
-    }
 
-    [Test]
+        Assert.That(driver.Equals("https://amazon.com"), Is.True);
 
-    public void SecondSeleniumTest()
-    {
-        IWebDriver driver = new ChromeDriver();
+        Assert.That(driver.Url.Equals("https://amazon.com"), Is.True);
 
-        driver.Manage().Window.Maximize();
+        driver.Url = "https://amazon.com";
 
-        driver.Navigate().GoToUrl("https://www.selenium.dev/");
+        String title = driver.Title; 
 
-        Assert.That(driver.Title, Is.EqualTo("Selenium"));
-
-        var classNameValidator = driver.FindElement(By.ClassName("td-home")).Displayed;
-
-        Assert.That(classNameValidator, Is.EqualTo(true));
-
-        // this should pass because there is a class element named td-home in the code 
-    }
-
-    [Test]
-    public void ThirdSeleniumTest()
-    {
-        IWebDriver driver = new ChromeDriver();
-        driver.Manage().Window.Minimize();
-
-        driver.Navigate().GoToUrl("https://www.selenium.dev");
-
-        var classNameValidator = driver.FindElement(By.ClassName("td-offset-anchor")).Displayed;
-
-        Assert.That(classNameValidator, Is.EqualTo(true));
-    }
-    */
-
-    [Test]
-    public void ClairTest()
-    {
-        IWebDriver driver = new ChromeDriver();
-        driver.Manage().Window.Maximize();
-
-        driver.Navigate().GoToUrl("https://getclair.com/how-clair-works");
-
-        var classNameValidator = driver.FindElement(By.ClassName("container hcw-container w-container")).Displayed;
-        Assert.That(classNameValidator, Is.EqualTo(true));
-
-        driver.Quit();
-    }
-    /*
-     * Practice test to see if a web browser opens and gets title name, title length
-     * Steps to Reproduce:
-     * Launch a new Chrome browswer
-     * Open Store Demo QA Website
-     * Get Page Title name and Length
-     * Print Page Title length on console
-     * Close the Browser
-     * 
-     * This tests if our website is up and running 
-     * */
-    [Test]
-    public void OpenWebTest()
-    {
-        IWebDriver driver = new ChromeDriver();
-        //Launch ToolsQA Site
-        driver.Url = "https://demoqa.com";
-
-        // stores title name in string variable 
-        String Title = driver.Title;
-
-        // stores title length in int var
         int TitleLength = driver.Title.Length;
 
+        Console.WriteLine("This title of this age is: ", title," and the length is: ", TitleLength);
 
-        // PRINTS TITLE NAME ON CONSOLE
-        Console.WriteLine("Title of the page is", Title);
-
-        // print title length
-        Console.WriteLine("Length of the title is " + TitleLength);
-
-        // storing URL in string variable
         string PageUrl = driver.Url;
 
+        int PageSourceLength = driver.PageSource.Length;
+
+        driver.FindElement(By.XPath(".//*[@id='tabs-1']/div/p/a")).Click();
 
         driver.Quit();
 
     }
-    // Browser 
+
     [Test]
-    public void browserCommands()
+public static void clickOnItem2()
     {
         IWebDriver driver = new ChromeDriver();
-        // Launch ToolsQA Website 
-        driver.Url = "https://demoqa/com/frames-and-windows/";
+        driver.FindElements(By.Id("name"));
+        int titleLength = driver.Title.Length + 1;
+        Console.WriteLine(titleLength);
 
-        driver.FindElement(By.XPath(".//*[@id='tabs-1'] /div/p/a")).Click();
-        driver.Close();
-    }
-    /*
-     * Navigation commands is used to navigate around the browser, allows you to move backards
-     * and forwards in the browser history:
-     * Four Commands - GoToUrl, Back, Forward, Refresh
-     */
-    [Test]
-    public void navigationCommands()
-    {
-        IWebDriver driver = new ChromeDriver();
-        // void INavigation.Go.To.Url(String Url) new page from url 
-        driver.Navigate().GoToUrl("https://toolsqa.com");
-        // back command to navigate to previous page 
-        driver.Navigate().Back();
-        // forward command to navigate to new page 
-        driver.Navigate().Forward();
-        //refreshes the browser 
-        driver.Navigate().Refresh();
-
-        // in a sample test case 
-
-
-
+        string pageUrl = driver.Url;
     }
 
-    /* Test for Navigating website regsitration link 
-     * P1 opens a new chrome driver 
-     * P1 then navigates to sample website 
-     * P1 finds registration link using Xpath 
-     * P1 clicks on "back" command to go to the home page 
-     * P1 clicks on forward to return back to regsitration link
-     * P1 then refreshes the web page 
-     * P1 closes the browser 
-     */
+    /* this is where it was */
 
     [Test]
-    public void browserNavigationCommands()
+
+    public static void clickOnTitle()
     {
         IWebDriver driver = new ChromeDriver();
+        driver.FindElement(By.XPath("string"));
 
-        driver.Navigate().GoToUrl("https://demoqa.com");
+        driver.FindElement(By.CssSelector("title")).Click();
 
-        driver.FindElement(By.XPath(".//*[@id='menu-item-374']/a")).Click();
+        int titleLength = driver.Title.Length;
+        Console.WriteLine(titleLength + 1);
 
-        driver.Navigate().Back();
+        string pageUrl = driver.Url;
 
-        driver.Navigate().Forward();
+        Console.WriteLine("this is the URL of the profile: ", pageUrl);
 
-        driver.Navigate().Refresh();
+        driver.Navigate().GoToUrl(pageUrl);
 
-        driver.Close();
-    }
+        driver.SwitchTo().Window(pageUrl);
 
-    [Test]
-    public void WebElementCommands()
-    {
-        // web elememt commands are used with "tags" from HTML code 
-        // such as <p> Hello my first HTML element <p>
+        driver.SwitchTo().Window(pageUrl); driver.SwitchTo().Window(pageUrl);
 
-        IWebDriver driver = new ChromeDriver();
+        driver.SwitchTo().Window(pageUrl);
 
-        // clear command 
+        Console.WriteLine(driver.ToString());
+        Console.WriteLine(pageUrl);
 
-        driver.FindElement(By.Id("UserName")).Clear();
-
-        // click command 
-        driver.FindElement(By.LinkText("ToolsQA")).Click();
+        driver.FindElement(By.XPath(""));
 
 
-        // further test case implementtajion 
-
-        /*
-    p1 launches new browswer 
-    P1 opens URL site
-    P1 types on name and last name using name locator 
-    P1 clicks on Submit button with ID locator 
-
-        
-         * */
-
-        driver.Url = ("https://toolsqa.com/Automation-practice-form");
-
-        // types name in the first name text box 
-        driver.FindElement(By.Name("firstname")).SendKeys("Sharma");
-
-        // click on submit
-        driver.FindElement(By.Id("submit")).Click();
-
-    }
-
-    [Test]
-    public void testTwo()
-    {
-        IWebDriver driver = new ChromeDriver();
-        /*
-         * P1 launches new web browser 
-         * P1 clicks on the link partual link test
-         */
-
-        Console.WriteLine("Gabriela and Drake Collab");
-
-
-    }
-    /*
-    [Test]
-    public void TitleTest()
-    {
-        IWebDriver driver = new ChromeDriver();
-        driver.Manage().Window.Minimize();
-
-
-        driver.Navigate().GoToUrl("https://www.google.com/");
-
-        string currentUrl1 = driver.Url;
-
-        System.Threading.Thread.Sleep(2000);
-
-        var classNameValidator = driver.FindElement(By.ClassName("google")).Displayed;
-        Assert.That(classNameValidator, Is.EqualTo(true));
-
-        // Check if the current URL matches the expected URL of the destination page
-        if (currentUrl1 == "https://www.google.com/")
-        {
-            Console.WriteLine("Button click successfully redirected to the expected page.");
-        }
-        else
-        {
-            Console.WriteLine("Button click did not redirect to the expected page.");
-        }
 
         driver.Quit();
     }
-
-    [Test]
-
-    public void LocatorsTest()
-    {
-        var results = new List<string>();
-
-        IWebDriver driver = new ChromeDriver();
-
-        driver.Manage().Window.Maximize();
-
-        driver.Navigate().GoToUrl("https://www.selenium.dev/");
-
-        Assert.That(driver.Title, Is.EqualTo("Selenium"));
-
-        // h2 heading 
-
-        // find element
-        var firstH2 = driver.FindElement(By.XPath("//h2"));
-        results.Add($"FindElement: {firstH2.Text}");
-
-        // find elements
-        var h2Collection = driver.FindElements(By.XPath("//h2"));
-        foreach (var h2 in h2Collection)
-        {
-            results.Add($"FindElements: {h2.Text}");
-        }
-
-        driver.Quit();
-    }
-    */
-
-    /* public void medicalCareTab() {
-       driver.Navigate().GoToUrl("https://www.amazon.com/ref=nav_logo");
-       vars["title"] = driver.Title;
-       if ((Boolean) js.ExecuteScript("return (arguments[0]!=\'Amazon\')", vars["title"])) {
-         driver.Navigate().GoToUrl("https://www.amazon.jobs/en/a");
-       }
-       driver.Manage().Window.Size = new System.Drawing.Size(783, 824);
-       js.ExecuteScript("window.scrollTo(0,3988.800048828125)");
-       driver.FindElement(By.LinkText("Careers")).Click();
-       driver.Close();
-     }
-    */
 }
